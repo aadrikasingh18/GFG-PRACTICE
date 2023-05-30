@@ -18,53 +18,59 @@ class GFG {
 // } Driver Code Ends
 
 
-class Solution {
+class Solution 
+{
     // Function to convert an infix expression to a postfix expression.
-    public static String infixToPostfix(String exp) {
+    public static int precedence(int ch)
+    {
+        if(ch == '+' || ch == '-')
+        return 1;
+        
+        else if(ch == '*' || ch == '/')
+        return 2;
+        
+        else if (ch == '^')
+        return 3;
+        
+        else 
+        return -1;
+    }
+    public static StringBuilder infixToPostfix(String exp) 
+    {
         // Your code here
-         Map<Character,Integer> priority=new HashMap<>();
-      priority.put('+',1);
-      priority.put('-',1);
-      priority.put('*',2);
-      priority.put('/',2);
-      priority.put('^',3);
-      priority.put('(',0);
-      Stack<Character> st=new Stack<>();
-      String ans="";
- 
-      for(int i=0;i<exp.length();i++)
-      {
-          char c=exp.charAt(i);
-          
-          //case 1
-          if(c=='(')
-          st.push(c);
-          //case 2
-          else if(c==')')
-          {
-             while(st.peek()!='(')
-             ans+=st.pop();
-             
-              st.pop();
-          }
-          //case3
-          else if(c=='+' || c=='-' || c=='*' || c=='^' || c=='/')
-          {
-              while(!st.isEmpty() && priority.get(st.peek())>=priority.get(c))
-              ans+=st.pop();
-              
-              st.push(c);
-          }
-          //case4
-          else
-              ans+=c;
-      }
-      
-      while(!st.isEmpty())
-          ans+=st.pop();
-      
-      
-      
-     return ans;
+        StringBuilder result = new StringBuilder();
+        ArrayDeque <Character> stack = new ArrayDeque<>();
+        for(int i=0; i < exp.length(); i++)
+        {
+            char ch = exp.charAt(i);
+            if(ch == '(')
+            stack.push('(');
+            
+            else if(Character.isLetterOrDigit(ch))
+            result.append(ch);
+            
+            else if(ch == ')')
+            {
+                while(!stack.isEmpty() && stack.peek() != '(')
+                {
+                    result.append(stack.pop());
+                }
+                stack.pop();
+            }
+           
+            else 
+            {
+                while(!stack.isEmpty() && precedence(ch) <= precedence(stack.peek()))
+                {
+                    result.append(stack.pop());
+                }
+                stack.push(ch);
+            }
+        }
+        while(!stack.isEmpty())
+        {
+            result.append(stack.pop());
+        }
+        return result;
     }
 }
