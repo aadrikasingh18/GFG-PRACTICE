@@ -110,46 +110,29 @@ class GfG {
 
 // } Driver Code Ends
 
-
-//User function Template for Java
-
-
-/* A binary tree node class
-class Node
-{
-	int data;
-	Node left,right;
-	
-	Node(int d)
-	{
-		data = d;
-		left = right = null;		
-	}
-} */
-
 class Tree
 {
-    
-    //Function to check whether a binary tree is balanced or not.
     boolean isBalanced(Node root)
     {
-        return height(root) != -1;
+        return dfsHeight(root) != -1;
     }
-    int height(Node root)
+    int dfsHeight(Node root)
     {
         if(root == null)
         return 0;
         
-        int leftHeight = height(root.left);
-        if(leftHeight == -1) return -1;
-        
-        int rightHeight = height(root.right);
-        if(rightHeight == -1) return -1;
-        
-        if(Math.abs(leftHeight - rightHeight) > 1)
+        int left = dfsHeight(root.left);
+        if(left == -1)
         return -1;
         
-        return Math.max(leftHeight, rightHeight) + 1;
+        int right = dfsHeight(root.right);
+        if(right == -1)
+        return -1;
+        
+        if(Math.abs(left - right) > 1)
+        return -1;
+        
+        return Math.max(left, right) + 1;
     }
 }
 
