@@ -143,4 +143,5 @@ class Solution
 	    return((p.data == q.data) && isIdentical(p.left, q.left) &&
 	            isIdentical(p.right, q.right));
 	}
+	
 }
