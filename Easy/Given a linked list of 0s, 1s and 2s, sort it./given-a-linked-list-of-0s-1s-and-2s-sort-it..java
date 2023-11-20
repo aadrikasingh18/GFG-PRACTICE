@@ -63,46 +63,97 @@ class Driverclass
 
 // } Driver Code Ends
 
+// LINKS ARE CHANGED
 class Solution
 {
     static Node segregate(Node head)
     {
-        int zero = 0;
-        int one = 0;
-        int two = 0;
+        Node zeroHead = new Node(-1);
+        Node zeroTail = zeroHead;
+        Node oneHead = new Node(-1);
+        Node oneTail = oneHead;
+        Node twoHead = new Node(-1);
+        Node twoTail = twoHead;
+        
         Node curr = head;
         while(curr != null)
         {
             if(curr.data == 0)
-            zero++;
-            else if(curr.data == 1)
-            one++;
-            else 
-            two++;
+            {
+                zeroTail.next = curr;
+                zeroTail = zeroTail.next;
+            }
             
+            else if(curr.data == 1)
+            {
+                oneTail.next = curr;
+                oneTail = oneTail.next;
+            }
+            
+            else
+            {
+                twoTail.next = curr;
+                twoTail = twoTail.next;
+            }
             curr = curr.next;
         }
-        curr = head;
-        while(zero != 0)
+        //MERGING LISTS
+        if(oneHead.next != null)//1 VLI LIST MIE ELEMENT PRESENT HAI
         {
-            curr.data = 0;
-            zero--;
-            curr = curr.next;
+            zeroTail.next = oneHead.next;
         }
-        while(one != 0)
+        else//1 VLI LIST MIE ELEMENT PRESENT NHI HAI
         {
-            curr.data = 1;
-            one--;
-            curr = curr.next;
+            zeroTail.next = twoHead.next;
         }
-        while(two != 0)
-        {
-            curr.data = 2;
-            two--;
-            curr = curr.next;
-        }
-        return head;
+        
+        oneTail.next = twoHead.next;
+        twoTail.next = null;
+        return zeroHead.next;
     }
 }
+
+// DATA IS CHANGED
+// class Solution
+// {
+//     static Node segregate(Node head)
+//     {
+//         int zero = 0;
+//         int one = 0;
+//         int two = 0;
+//         Node curr = head;
+//         while(curr != null)
+//         {
+//             if(curr.data == 0)
+//             zero++;
+//             else if(curr.data == 1)
+//             one++;
+//             else 
+//             two++;
+            
+//             curr = curr.next;
+//         }
+//         curr = head;
+//         while(zero != 0)
+//         {
+//             curr.data = 0;
+//             zero--;
+//             curr = curr.next;
+//         }
+//         while(one != 0)
+//         {
+//             curr.data = 1;
+//             one--;
+//             curr = curr.next;
+//         }
+//         while(two != 0)
+//         {
+//             curr.data = 2;
+//             two--;
+//             curr = curr.next;
+//         }
+//         return head;
+//     }
+// }
 
 
