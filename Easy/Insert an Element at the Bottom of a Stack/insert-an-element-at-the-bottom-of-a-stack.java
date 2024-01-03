@@ -38,20 +38,21 @@ class GFG {
 
 class Solution 
 {
+    public void solve(Stack<Integer> st, int x)
+    {
+        if(st.isEmpty())
+        {
+            st.push(x);
+            return;
+        }
+        
+        int top = st.pop();
+        solve(st,x);
+        st.push(top);
+    }
     public Stack<Integer> insertAtBottom(Stack<Integer> st, int x) 
     {
-        Deque <Integer> temp = new ArrayDeque<Integer>();
-        while(!st.isEmpty())
-        {
-            int a = st.pop();
-            temp.push(a);
-        }
-        st.push(x);
-        while(!temp.isEmpty())
-        {
-            int a = temp.pop();
-            st.push(a);
-        }
+        solve(st,x);
         return st;
     }
 }
