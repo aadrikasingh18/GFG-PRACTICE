@@ -45,23 +45,25 @@ class GFG
 
 class Solution
 { 
-    static void reverse(Stack<Integer> st)
+    static void insertAtLast(Stack<Integer> st, int num)
     {
-        int n = st.size(); //3
-        int a[] = new int[n];// _4 _5 _7
-        int i = 0;
-        while(!st.isEmpty())
+        if(st.isEmpty())
         {
-            a[i] = st.pop();
-            i++;
+            st.push(num);
+            return;
         }
         
-        i=0;
-        while(n != 0)
-        {
-            st.push(a[i]);
-            i++;
-            n--;
-        }
+        int top = st.pop();
+        insertAtLast(st,num);
+        st.push(top);
+    }
+    static void reverse(Stack<Integer> st)
+    {
+        if(st.isEmpty())
+        return;
+        
+        int top = st.pop();
+        reverse(st);
+        insertAtLast(st, top);
     }
 }
