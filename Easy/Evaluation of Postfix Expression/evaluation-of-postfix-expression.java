@@ -19,22 +19,22 @@ class GFG {
 class Solution
 {
     //Function to evaluate a postfix expression.
-    public static int evaluatePostFix(String exp)
+    public static int evaluatePostFix(String s)
     {
         // Your code here
-        ArrayDeque <Integer> stack = new ArrayDeque<>();
-        for(int i=0; i<exp.length(); i++)
+        ArrayDeque<Integer> st = new ArrayDeque<Integer>();
+        for(int i=0; i<s.length(); i++)
         {
-            char ch = exp.charAt(i);
+            char ch = s.charAt(i);
             if(Character.isDigit(ch))
             {
                 int val = Character.getNumericValue(ch);
-                stack.push(val);
+                st.push(val);
             }
             else
             {
-                int sec = stack.pop();
-                int first = stack.pop();
+                int sec = st.pop();
+                int first = st.pop();
                 int result = 0;
                 
                 if(ch == '+')
@@ -49,9 +49,9 @@ class Solution
                 else if(ch == '/')
                 result = first / sec;
                 
-                stack.push(result);
+                st.push(result);
             }
         }
-        return stack.pop();
+        return st.pop();
     }
 }
